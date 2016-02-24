@@ -1,0 +1,37 @@
+{
+  "name": "lamarr-js",
+  "version": "1.0.0",
+  "description": "Lamarr parser and compiler.",
+  "main": "index.js",
+  "scripts": {
+    "lint": "./node_modules/.bin/jshint --exclude-path ./.gitignore --reporter=./node_modules/jshint-full-path/index.js .",
+    "pretest": "npm run-script lint",
+    "test": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha -- --require should --reporter spec --ui bdd ./test/*",
+    "posttest": "./node_modules/.bin/istanbul check-coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lamarr-lang/lamarr-js.git"
+  },
+  "keywords": [
+    "lamarr",
+    "parser",
+    "compiler",
+    "text",
+    "game",
+    "game"
+  ],
+  "author": "Jiri Hybek <jiri@hybek.cz>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lamarr-lang/lamarr-js/issues"
+  },
+  "homepage": "https://github.com/lamarr-lang/lamarr-js#readme",
+  "devDependencies": {
+    "istanbul": "^0.3.17",
+    "jshint": "^2.8.0",
+    "jshint-full-path": "^1.1.1",
+    "mocha": "^2.2.5",
+    "should": "^6.0.3"
+  }
+}
