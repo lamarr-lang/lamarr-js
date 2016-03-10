@@ -1,0 +1,76 @@
+#single line comment
+
+#|
+multi line comment
+|#
+
+@x
+@y:= 1 + 1 / (2.2*2) - @test * $player.health > min(1, @x, "hello") + ( 10 to 20 ) + true <= false && @x >= 3 and $y < 4 AND 5 == 5 || @z != 2 or 3 == 3 OR 4 > 42 #komentar
+
+property health "Zivot" 0 to 100 #komentar
+property agility "Rychlost"
+
+node schodiste "Jsi na schodisti"
+node mistnost "Jsi v mistnosti"
+
+path schodiste "Jit do mistnosti" mistnost prechod bubak
+
+action schodiste "Kouknout na obraz" "Koukl jsi na obraz"
+action (true) "Neco udelat" doSomething
+
+first 3 pick no klic (true) "Klic nelze sebrat" mujMod
+first 2 pick klic "Sebral jsi klic"
+first 1 pick klic
+pick klic "Sebral jsi klic"
+
+first 2 check klic "Prozkoumal jsi klic 2x"
+first 1 check klic
+check klic "Prozkoumal jsi klic"
+
+first 3 use klic on dvere (true) "Odemkl jsi dvere" mujMod
+first 2 use klic "Co to sakra delas?"
+first 1 use klic
+use klic "To nema cenu"
+
+first 3 lay no klic (var x = 0,50%, atnode test, atnode no zahrada, hasitem klic, hasitem no paka) "Klic nelze sebrat" mujMod
+first 2 lay klic "Sebral jsi klic"
+first 1 lay klic
+lay klic "Sebral jsi klic"
+
+location klic schodiste
+location houby no
+location prirucka player
+
+resource voda zahrada popraviste
+
+nodes
+	zahrada "Zahrada"
+	final popraviste "Popraviste"
+
+vars
+	test
+	test2 := 42 to 99
+
+properties
+	strength "Sila"
+
+actions
+	mistnost "Kouknout z okna" "Koukl jsi z okna"
+
+map
+	mistnost "Skocit z okna" popraviste sibenice
+
+item voda "Voda" "A je tu voda"
+	location mistnost
+	resources mistnost
+	resource schodiste
+
+boring
+	pick "Sebral jsi a nic"
+	pick no "Nesebral si"
+	check "Zkontroloval jsi a nic"
+	use "Pouzil jsi a nic"
+	lay "Polozil jsi a nic"
+	lay no "Nepolozils"
+
+start "zacatek hry" schodiste

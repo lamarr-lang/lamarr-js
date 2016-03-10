@@ -1,0 +1,78 @@
+start "Demo hra. Sejděte z věže do sklepa, kde najdete klíč, kterým si otevřete dveře v přízemí." vez
+
+@steps:= 4 to 8
+property @steps "Čas" 1 to 20
+
+var money:= 100
+property money "Zlato"
+
+nodes
+  vez "Jsi ve věži. Můžeš sejít dolů po schodech."
+  dvere "Jsi u zamčených dveří. Schodiště vede nahoru do věže nebo dolů do sklepa."
+  sklep "Jsi ve sklepě. Je tu zatuchlo."
+  final gameover "Došel ti čas. Umřel jsi hlady."
+
+node final cil "Podařilo se ti dostat se ven. Nejsi úplná lama."
+
+# paths
+map
+  vez "Dolů" dvere
+  dvere "Nahoru" vez
+  dvere "Dolů" sklep
+  sklep "Nahoru" dvere
+
+action vez "Rozhlédnout se z okna." "Rozhlédl ses z okna."
+
+item klic "Klíč" "Na zemi leží klíč."
+  location sklep
+  boring lay
+  first check "Prvně kontroluješ klíč."
+  check "Vypadá to jako klíč ke dveřím.|Leze leze po železe, nedá pokoj, až tam vleze - co je to?"
+#  use "Použil jsi klíč a průvan ve věži kvílel dál."
+  use (atnode dvere) "Tak si hraješ s klíčem a přemýšlíš, na co ho použít."
+  use pridejZlato
+
+first use klic on dvere (atnode dvere) odemknuti
+pick klic "Sebral jsi klíč. Dostal jsi třeba padesát expů."
+
+item zlato "Zlato" "Vidíš zlato."
+  location no
+  resources vez
+  boring check, use no, lay no
+  pick seberZlato
+
+mod seberZlato
+  message "Sebral jsi hrst zlata."
+  var money+= 20 to 200
+
+mod pridejZlato
+  message "Ve sklepě je zlato."
+  addresource zlato sklep
+
+item dvere "Dveře" "U zdi vidíš dveře."
+  location dvere
+  check "Jsou to masivní těžké zamčené dveře."
+
+item podlaha "Podlaha" "Stojíš na kamenné podlaze."
+  location dvere
+  check "Prostě špinavá studená kamenná podlaha."
+
+mod odemknuti
+  message "Odemknul jsi dveře. Můžeš jít ven!"
+  message "Tak už padej!"
+  addpath dvere "Ven" cil
+  setnode dvere "Jsi u odemčených dveří. Schodiště vede nahoru do věže nebo dolů do sklepa."
+
+# tento speciální mod se vykoná při přesunu z jednoho uzlu do druhého
+var x:= 2
+mod move
+  var steps+= 1 to 99
+  (called < 3 ) skip 1
+    message "První tři kroky."
+  callmod (var steps>20) timeup
+
+mod timeup
+  teleport gameover
+
+# při přesunu mezi konkrétními uzly je možné doplnit vlastní mod, např.
+# vez "Dolů" dvere zVezeDoDveri

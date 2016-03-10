@@ -14,9 +14,9 @@ node ./lamarr.js demo.lrm
 
 ## JavaScript API usage
 ```javascript
-var lamarrLang = require("lamarr-js");
+var lamarrJS = require("lamarr-js");
 
-var game = lamarrLang.load("./demo.lmr");
+var game = lamarrJS.load("./demo.lmr");
 
 var controller = game.enter("player", {
 	name: "Player"
@@ -29,4 +29,4 @@ controller. ... #to-do
 TO-DO
 
 ## License
-MIT (c) 2016 Jiri Hybek <jiri@hybek.cz>
+MIT &copy; 2016 Jiri Hybek (jiri@hybek.cz)
